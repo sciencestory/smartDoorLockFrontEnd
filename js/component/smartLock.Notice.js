@@ -14,9 +14,6 @@ smartLock.Notice = eg.Class.extend(smartLock.Default,{
     _initParams : function(htParams) {
         this._welBaseElement = htParams.welBaseElement;
     },
-    _initEvent : function() {
-       
-    },
     _drawComponentStruct: function() {
         var $pageHeader = $('<div class="contentHeader">공지사항 관리</div>');
         var $registerButton = $('<button type="button" class="btn btn-success">등록하기</button>').click($.proxy(function(){
@@ -29,13 +26,13 @@ smartLock.Notice = eg.Class.extend(smartLock.Default,{
             .append($registerButton)
         );
 
-        var $noticeContentList = $('<div id="noticeContentList" style="height:450px !important;overflow: auto !important;"></div>');
+        var $noticeContentList = $('<div id="noticeContentList"></div>');
         var $noticeContentAdd = $('<button id="addNoticeListButton" type="button" class="btn btn-secondary">더 보기</button>').click($.proxy(function(){
             this._addNoticeList();
         }, this));
         var $container = $('<div id="noticeContainerArea" class="container"></div>')
                             .append($noticeSubMenu)
-                            .append($('<div id="noticeContentArea"></div>')
+                            .append($('<div id="noticeContentArea" style="height:380px !important;overflow: auto !important;"></div>')
                                 .append($noticeContentList)
                                 .append($noticeContentAdd)
                             )
@@ -79,7 +76,37 @@ smartLock.Notice = eg.Class.extend(smartLock.Default,{
 
     },
     _addNoticeList: function() {
-        alert('더 보기 버튼 클릭');
+        $.ajax({
+            url: '/ajax/notice/page/' + this._currentPageNo,
+            method: 'get',
+            success: $.proxy(function(oResponse){
+                if(oResponse) {
+                    if (oResponse.totalCount > 0) {
+                        $('#noticeSubMenu').show();
+                        $('#totalCount').html(oResponse.totalCount);
+                        this._nTotalCount = oResponse.totalCount;
+                    }
+
+                    if (oResponse.hasNextPage) {
+                        this._currentPageNo++;
+                    } else {
+                        $('#addNoticeListButton').hide();
+                    }
+
+                    this._appendAddNoticeList(oResponse);
+                }
+            }, this),
+            error: $.proxy(function(oFailResponse){
+                this._processAjaxCallFail(oFailResponse);
+            }, this)    
+        });
+    },
+    _appendAddNoticeList(oNoticePaging) {
+        var welNoticeContentList = $('#noticeContentList');
+        $.each(oNoticePaging.noticeList, $.proxy(function(index, oNotice){
+            var $NoticeView = this._createNoticeView(oNotice); 
+            welNoticeContentList.append($NoticeView);
+        },this));
     },
     _drawNoticeModifyArea: function(nNoticeId) {
         var sUrl = '/ajax/notice/' + nNoticeId;

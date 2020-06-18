@@ -15,6 +15,7 @@
     <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="/css/contentHeader.css" rel="stylesheet">
     <link href="/css/card.css" rel="stylesheet">
+    <link href="/css/jquery-ui.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/navbar-fixed-top.css" rel="stylesheet">
@@ -42,19 +43,8 @@
         <ul class="nav navbar-nav">
           <li id="home" class="active"><a href="/menu/home">Home</a></li>
           <li id="notice"><a href="/menu/notice">공지사항 관리</a></li>
-          <li id="visitorTracking"><a href="/menu/visitorTracking">방문자 트래킹</a></li>
-          <li id="masterKey"><a href="/menu/masterKey">마스터키 변경</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">도어락 관리 <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li id="changeDoorPassword"><a href="#">비밀번호 변경</a></li>
-              <li id="remoteDoorOpen"><a href="#">원격 개방</a></li>
-              <li class="divider"></li>
-              <!-- <li class="dropdown-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li> -->
-            </ul>
-          </li>
+          <li id="visitorTracking"><a href="/menu/trackingVisitor">방문자 트래킹</a></li>
+          <li id="doorManage"><a href="/menu/doorManage">도어락 관리</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#" onclick="JavaScript:oMainComponent.logout();">로그아웃</a></li>
@@ -63,26 +53,15 @@
     </div>
   </nav>
 
-  <div id="mainContentArea" class="container">
-
-    <!-- Main component for a primary marketing message or call to action -->
-    <!-- <div class="jumbotron">
-      <h1>Navbar example</h1>
-      <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-      <p>To see the difference between static and fixed top navbars, just scroll.</p>
-      <p>
-        <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs »</a>
-      </p>
-    </div> -->
-
-  </div> 
+  <div id="mainContentArea" class="container"></div> 
   <!-- /container -->
 
 
   <!-- Bootstrap core JavaScript
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="/js/common/jquery-1.12.4.min.js"></script>
+  <script src="/js/common/jquery-3.2.1.min.js"></script>
+  <script src="/js/common/jquery-ui.min.js"></script>
   <script src="/js/common/bootstrap.min.js"></script>
   <script src="/js/common/hammer.min.js"></script>
   <script src="/js/common/eg.min.js"></script>
@@ -91,6 +70,8 @@
   <script src="/js/component/smartLock.Main.js"></script>
   <script src="/js/component/smartLock.Home.js"></script>
   <script src="/js/component/smartLock.Notice.js"></script>
+  <script src="/js/component/smartLock.DoorManage.js"></script>
+  <script src="/js/component/smartLock.TrackingVisitor.js"></script>
 
   <script>
       var oMainComponent = new smartLock.Main({

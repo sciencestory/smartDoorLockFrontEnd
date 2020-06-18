@@ -32,9 +32,15 @@ smartLock.Main = eg.Class.extend(smartLock.Default,{
                     "welBaseElement" : this._welBaseMainContentElement
                 });
                 break;
-            case 'visitorTracking':
+            case 'trackingVisitor':
+                this._oSelectedContentComponent = new smartLock.TrackingVisitor({
+                    "welBaseElement" : this._welBaseMainContentElement
+                });
                 break;
-            case 'masterKey':
+            case 'doorManage':
+                this._oSelectedContentComponent = new smartLock.DoorManage({
+                    "welBaseElement" : this._welBaseMainContentElement
+                });
                 break;
             default:
                 this._oSelectedContentComponent = new smartLock.Home({
